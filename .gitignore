@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Editors and OS
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# Data and generated artifacts
+data/*
+!data/README.md
+checkpoints/*
+!checkpoints/README.md
+outputs/
+artifacts/
+logs/
+*.pkl
+*.pickle
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.safetensors
+*.npy
+*.npz
+*.jsonl.gz
+
+# Local credentials and cache
+.cache/
+huggingface/
+wandb/
+

@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated article."
+title: "MAS-Rec: Multimodal Aspect Summarization for Recommender Systems"
+type: software
+authors:
+  - family-names: Woo
+    given-names: Soohyun
+repository-code: "https://github.com/hyun0415/MAS-Rec"
+preferred-citation:
+  type: article
+  title: "Enhancing Multimodal Recommender System Performance Using Large Language Models"
+  authors:
+    - family-names: Woo
+      given-names: Soohyun
+    - family-names: Park
+      given-names: Seonu
+    - family-names: Li
+      given-names: Xinzhe
+    - family-names: Lee
+      given-names: Seongkook
+    - family-names: Kim
+      given-names: Jaekyeong
+  journal: IEEE Access
+  volume: 14
+  year: 2026
+  start: 75498
+  end: 75514
+  doi: "10.1109/ACCESS.2026.3694258"
+

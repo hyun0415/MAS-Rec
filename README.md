@@ -10,23 +10,27 @@ Official research code archive for **MAS-Rec (Multimodal Aspect Summarization fo
 
 Conventional multimodal recommenders often encode reviews and images independently, even though the two modalities describe the same product attributes in different forms. MAS-Rec first converts both modalities into aspect-centered natural-language summaries and then learns their interaction with a two-tower BERT model and bidirectional co-attention.
 
-```mermaid
-flowchart LR
-    A[User review history] --> B[LLaMA-3-8B-Instruct]
-    C[Item title and images] --> D[LLaVA-1.6-Mistral-7B]
-    B --> E[User aspect summary]
-    D --> F[Item aspect summary]
-    E --> G[User BERT encoder]
-    F --> H[Item BERT encoder]
-    I[User ID embedding] --> J[Feature fusion]
-    K[Item ID embedding] --> J
-    G --> J
-    H --> J
-    J --> L[Bidirectional co-attention]
-    L --> M[Rating prediction]
-```
+![Overall framework of the MAS-Rec model](docs/images/mas-rec-framework.png)
+
+*Figure 1. Overall framework of MAS-Rec. The summarization models remain frozen, while the two BERT encoders are fine-tuned through the rating-prediction objective.*
+
+### Aspect-based multimodal representation
+
+LLaVA converts an item image and title into an attribute-oriented description covering details such as style, color, fit, pattern, and brand. This aligns visual evidence with the natural-language representation used by the recommendation model.
+
+![Example of an item aspect summary generated from an image and product title](docs/images/item-aspect-summary-example.png)
+
+*Figure 2. Example of an LLM-generated item representation derived from a review image and product title.*
 
 The BERT towers are not used only as frozen feature extractors. They are optimized jointly with the rating-prediction objective, allowing the language representations to adapt to recommendation.
+
+### Interpreting the fine-tuned representations
+
+Attention Rollout is used to inspect which words receive relatively high attention in the fine-tuned user and item encoders. The visualization suggests that the model emphasizes preference- and product-related expressions such as fit, style, knit, color, and design. It is used as supporting evidence for interpretation rather than as a causal explanation of a prediction.
+
+![Attention Rollout visualization for LLaMA and LLaVA summaries](docs/images/attention-rollout.png)
+
+*Figure 4. BERT Attention Rollout over the LLM-generated user and item summaries.*
 
 ## Main results
 
@@ -122,4 +126,3 @@ If this work is useful in your research, please cite:
 ## License and usage
 
 The article is distributed under CC BY 4.0. No separate open-source license has yet been granted for this code archive. Please contact the repository owner before reusing or redistributing the implementation.
-

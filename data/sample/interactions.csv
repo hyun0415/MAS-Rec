@@ -1,0 +1,14 @@
+user_id,item_id,rating,user_summary,item_summary,is_synthetic
+u01,i01,5,"Prefers soft knit, relaxed fit, and neutral colors.","Soft beige knit top with a relaxed fit.",true
+u01,i02,2,"Prefers soft knit, relaxed fit, and neutral colors.","Bright fitted athletic shirt with a bold logo.",true
+u02,i01,4,"Likes simple styling and comfortable fabric.","Soft beige knit top with a relaxed fit.",true
+u02,i03,1,"Likes simple styling and comfortable fabric.","Heavy formal jacket with decorative buttons.",true
+u03,i02,5,"Looks for vivid color and close athletic fit.","Bright fitted athletic shirt with a bold logo.",true
+u03,i04,3,"Looks for vivid color and close athletic fit.","Black running shoes with firm cushioning.",true
+u04,i03,4,"Values formal design and structured shape.","Heavy formal jacket with decorative buttons.",true
+u04,i01,2,"Values formal design and structured shape.","Soft beige knit top with a relaxed fit.",true
+u05,i04,5,"Prefers durable shoes and firm support.","Black running shoes with firm cushioning.",true
+u05,i02,2,"Prefers durable shoes and firm support.","Bright fitted athletic shirt with a bold logo.",true
+u06,i03,3,"Balances comfort with a polished appearance.","Heavy formal jacket with decorative buttons.",true
+u06,i04,4,"Balances comfort with a polished appearance.","Black running shoes with firm cushioning.",true
+

@@ -19,6 +19,10 @@ Thumbs.db
 # Data and generated artifacts
 data/*
 !data/README.md
+!data/sample/
+!data/sample/**
+!data/splits/
+!data/splits/README.md
 checkpoints/*
 !checkpoints/README.md
 outputs/

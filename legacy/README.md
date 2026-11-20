@@ -1,11 +1,16 @@
-# Archived research notebooks
+# 원본 실험 노트북
 
-The existing notebooks under `notebooks/00_preprocessing` through
-`notebooks/04_experiments` are the paper-era research workflow. They are kept
-unchanged so the original implementation and any remaining outputs are not
-lost.
+이 폴더에는 실제 연구 과정에서 실행했던 노트북을 원본 형태로 보관합니다.
+출력까지 확인하려면 이 폴더의 파일을 열면 됩니다.
 
-They contain Google Colab paths and model-specific preparation steps. Use the
-top-level portfolio notebooks for a short walkthrough and `src/` for the shared
-split and evaluation rules.
+- `executed-notebooks/`: 전달받은 Colab 압축 파일에서 복원한 노트북 44개
+- `google-drive-baselines/`: Google Drive의 `Baseline Model` 폴더에서 받은 노트북 8개
 
+노트북의 코드와 실행 출력은 보존했지만, 공개 저장소에 들어가면 안 되는 토큰 값과
+Colab 사용자 식별 메타데이터는 제거했습니다. 수정하지 않은 원본은 사용자가 보관한
+ZIP 파일과 Google Drive에 있습니다.
+
+`notebooks/` 폴더의 공개용 노트북에는 데이터 미리보기, 모델 구조, 최종 평가값처럼
+결과를 이해하는 데 필요한 출력만 다시 넣었습니다. 설치 과정과 반복되는 긴 학습 로그는
+읽기 어렵기 때문에 공개용 노트북에서는 제외했습니다. 원본 로그는 이 `legacy/` 폴더에
+그대로 남아 있습니다.

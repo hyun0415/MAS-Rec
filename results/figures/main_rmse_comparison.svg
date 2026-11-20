@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="540" viewBox="0 0 960 540">
+<rect width="100%" height="100%" fill="#ffffff"/>
+<style>text{font-family:Arial,sans-serif;fill:#17202a}.title{font-size:24px;font-weight:700}.small{font-size:12px}.label{font-size:13px}</style>
+<text x="40" y="38" class="title">Paper-reported RMSE comparison</text>
+<text x="40" y="60" class="small">Lower is better. These values were not rerun in the portfolio refactor.</text>
+<text x="40" y="95" class="label" font-weight="700">Clothing</text>
+<text x="125" y="95" class="label">NeuMF</text>
+<rect x="210" y="80" width="604.1" height="18" rx="3" fill="#5b8ff9"/>
+<text x="822.1" y="94" class="label">0.734</text>
+<text x="125" y="122" class="label">ANR</text>
+<rect x="210" y="107" width="586.8" height="18" rx="3" fill="#5b8ff9"/>
+<text x="804.8" y="121" class="label">0.713</text>
+<text x="125" y="149" class="label">AFRAM</text>
+<rect x="210" y="134" width="558.8" height="18" rx="3" fill="#5b8ff9"/>
+<text x="776.8" y="148" class="label">0.679</text>
+<text x="125" y="176" class="label">MFNR</text>
+<rect x="210" y="161" width="551.4" height="18" rx="3" fill="#5b8ff9"/>
+<text x="769.4" y="175" class="label">0.670</text>
+<text x="125" y="203" class="label">CAMRec</text>
+<rect x="210" y="188" width="450.2" height="18" rx="3" fill="#5b8ff9"/>
+<text x="668.2" y="202" class="label">0.547</text>
+<text x="125" y="230" class="label">MMCN</text>
+<rect x="210" y="215" width="451.9" height="18" rx="3" fill="#5b8ff9"/>
+<text x="669.9" y="229" class="label">0.549</text>
+<text x="125" y="257" class="label">MAS-Rec</text>
+<rect x="210" y="242" width="417.3" height="18" rx="3" fill="#f28e2b"/>
+<text x="635.3" y="256" class="label">0.507</text>
+<text x="40" y="308" class="label" font-weight="700">Cell Phones</text>
+<text x="125" y="308" class="label">NeuMF</text>
+<rect x="210" y="293" width="629.6" height="18" rx="3" fill="#61d9a7"/>
+<text x="847.6" y="307" class="label">0.765</text>
+<text x="125" y="335" class="label">ANR</text>
+<rect x="210" y="320" width="623.9" height="18" rx="3" fill="#61d9a7"/>
+<text x="841.9" y="334" class="label">0.758</text>
+<text x="125" y="362" class="label">AFRAM</text>
+<rect x="210" y="347" width="598.4" height="18" rx="3" fill="#61d9a7"/>
+<text x="816.4" y="361" class="label">0.727</text>
+<text x="125" y="389" class="label">MFNR</text>
+<rect x="210" y="374" width="581.9" height="18" rx="3" fill="#61d9a7"/>
+<text x="799.9" y="388" class="label">0.707</text>
+<text x="125" y="416" class="label">CAMRec</text>
+<rect x="210" y="401" width="522.6" height="18" rx="3" fill="#61d9a7"/>
+<text x="740.6" y="415" class="label">0.635</text>
+<text x="125" y="443" class="label">MMCN</text>
+<rect x="210" y="428" width="511.1" height="18" rx="3" fill="#61d9a7"/>
+<text x="729.1" y="442" class="label">0.621</text>
+<text x="125" y="470" class="label">MAS-Rec</text>
+<rect x="210" y="455" width="433.7" height="18" rx="3" fill="#f28e2b"/>
+<text x="651.7" y="469" class="label">0.527</text>
+</svg>

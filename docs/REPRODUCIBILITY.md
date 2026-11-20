@@ -1,46 +1,43 @@
 # Reproducibility guide
 
-## Published setup
+## Two kinds of results
 
-- Split: random 70% training / 10% validation / 20% test
-- Optimizer: AdamW
-- Learning rate: `1e-5`
-- Batch size: `32`
-- User/item ID embedding dimension: `64`
-- Attention heads: `8`
-- Maximum epochs: `100`
-- Early stopping patience: `5`
-- Runs reported: `5`
-- Hardware reported: Google Colab with NVIDIA A100 GPU
-- Metrics: MAE, MSE, RMSE, MAPE
+- `reported_paper`: values copied from the published paper. They are stored in
+  `results/metrics.csv` and must not be overwritten.
+- `refactored_protocol`: values produced later with the shared split and metric
+  code. No full result of this type is included yet.
 
-## Recommended execution order
+A result from the synthetic sample is only a Smoke Test. It is not comparable
+to the paper result.
 
-1. Run the category filtering notebook in `notebooks/00_preprocessing/`.
-2. Generate conventional text/image representations where required by the baselines.
-3. Generate review and image aspect summaries in `notebooks/01_summarization/`.
-4. Train `notebooks/02_model/mas_rec.ipynb`.
-5. Run baseline and additional experiment notebooks.
+## Lightweight code check
 
-## Path configuration
-
-The archived notebooks preserve some legacy Google Colab paths such as `/content/drive/MyDrive/...`. Before execution, replace them with paths for your runtime. A practical local convention is:
-
-```text
-MAS-Rec/
-├── data/
-│   ├── clothing/
-│   └── cell_phones/
-└── checkpoints/
+```bash
+python -m venv .venv
+pip install -r requirements.txt
+python -m unittest discover -s tests -v
 ```
 
-Do not commit generated datasets, model weights, or local virtual environments.
+## Full experiment order
 
-## Credentials
+1. Obtain the Amazon review data under its original terms.
+2. Apply the paper's review, image, and interaction filters.
+3. Generate one shared split file with `src/data.py`.
+4. Fit user IDs, item IDs, and text vocabularies on training rows only.
+5. Generate the review and image summaries.
+6. Train every model with `configs/refactored_protocol.toml`.
+7. Choose the best checkpoint using validation MSE.
+8. Evaluate the chosen checkpoint once on the test rows.
+9. Save new rows as `refactored_protocol`; keep paper rows unchanged.
 
-The summarization notebooks accept a Hugging Face access token from the `HF_TOKEN` environment variable or a hidden interactive prompt. Never paste a token into a notebook cell. If a credential was ever embedded in a notebook, revoke it before sharing the repository—even if the notebook was later cleaned.
+The archived notebooks under `notebooks/00_preprocessing` through
+`notebooks/04_experiments` retain their original Colab paths and model-specific
+settings. They are evidence of the research workflow, not the recommended local
+entry point.
 
-## Scope of this archive
+## Credentials and large files
 
-Notebook outputs were removed to keep the repository reviewable and to avoid exposing runtime metadata. The paper's numerical results are preserved in `docs/EXPERIMENTS.md`. Exact reruns may vary with package versions, model revisions, random seeds, and hosted-model access; freeze a tested environment before claiming byte-for-byte reproducibility.
+Provide a Hugging Face token through `HF_TOKEN` or a hidden prompt. Never store
+it in a notebook. Do not commit raw reviews, processed pickle files, images,
+checkpoints, caches, or experiment-tracking logs.
 

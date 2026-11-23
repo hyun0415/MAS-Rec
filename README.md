@@ -7,7 +7,7 @@ MAS-Rec은 사용자 생성 콘텐츠(User-Generated Content, UGC)에 포함된 
 형태의 텍스트와 이미지 정보를 속성 중심의 텍스트 표현으로 통합한 뒤, 사용자 선호와
 아이템 특성 사이의 관계를 학습한다.
 
-[English](README_EN.md) · [논문](https://doi.org/10.1109/ACCESS.2026.3694258) · [데이터 안내](data/README.md) · [실험 결과](docs/EXPERIMENTS.md)
+[English](README_EN.md) · [논문](https://doi.org/10.1109/ACCESS.2026.3694258) · [데이터 안내](docs/DATA.md) · [실험 결과](docs/EXPERIMENTS.md)
 
 ## 연구 배경
 

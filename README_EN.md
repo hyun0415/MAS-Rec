@@ -8,7 +8,7 @@ complementary visual evidence about product appearance and characteristics.
 MAS-Rec converts these heterogeneous signals into attribute-aware textual
 representations and learns their interaction for recommendation.
 
-[한국어](README.md) · [Paper](https://doi.org/10.1109/ACCESS.2026.3694258) · [Data](data/README.md) · [Experiments](docs/EXPERIMENTS.md)
+[한국어](README.md) · [Paper](https://doi.org/10.1109/ACCESS.2026.3694258) · [Data](docs/DATA_EN.md) · [Experiments](docs/EXPERIMENTS_EN.md)
 
 ## Research motivation
 
@@ -82,7 +82,7 @@ performance.
 
 The complete MAE, MSE, RMSE, and MAPE tables are provided in
 [`results/metrics.csv`](results/metrics.csv) and
-[`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md). The prompt comparison further
+[`docs/EXPERIMENTS_EN.md`](docs/EXPERIMENTS_EN.md). The prompt comparison further
 shows that the most effective summarization strategy can vary by domain:
 reasoning-based summaries performed best for Clothing, whereas attribute-based
 summaries performed best for Cell Phones.
@@ -102,7 +102,7 @@ the review's attributes and sentiment. Sentiment reversal and the omission of
 negative attributes are treated as candidates for manual inspection rather
 than definitive evidence of hallucination. The complete aggregation tables,
 figures, and manual review results are provided in
-[`docs/TEXT_ERROR_ANALYSIS.md`](docs/TEXT_ERROR_ANALYSIS.md).
+[`docs/TEXT_ERROR_ANALYSIS_EN.md`](docs/TEXT_ERROR_ANALYSIS_EN.md).
 
 ## Repository structure
 
@@ -131,7 +131,7 @@ The notebooks are written for Google Colab and Google Drive; verify the data
 paths and runtime before execution. The CSV file under `data/sample/` is a
 synthetic schema example and is not used to obtain the reported results. Full
 data preparation and experiment order are described in
-[`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md).
+[`docs/REPRODUCIBILITY_EN.md`](docs/REPRODUCIBILITY_EN.md).
 
 ## Limitations
 
@@ -140,7 +140,7 @@ expressions. The experiments cover two Amazon product categories, and the same
 performance is not guaranteed in other domains. Moreover, image-modality error
 analysis remains limited because visual evidence cannot be assessed using the
 same attribute-matching procedure as text. See
-[`docs/LIMITATIONS.md`](docs/LIMITATIONS.md) for details.
+[`docs/LIMITATIONS_EN.md`](docs/LIMITATIONS_EN.md) for details.
 
 ## Citation and code use
 

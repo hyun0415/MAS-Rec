@@ -1,5 +1,7 @@
 # 텍스트 요약 오류 분석
 
+[English](TEXT_ERROR_ANALYSIS_EN.md)
+
 ## 1. 분석 목적
 
 본 분석은 원본 리뷰와 LLaMA 요약문에서 추출된 속성과 감성 방향을 비교하여, 요약

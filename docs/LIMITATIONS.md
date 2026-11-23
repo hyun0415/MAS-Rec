@@ -1,18 +1,46 @@
-# Limitations
+# 연구의 한계
 
-- LLM-generated summaries may omit preference-relevant details or introduce
-  expressions that are not supported by the original review or image.
-- The experiments cover two Amazon product categories. Additional domains are
-  required to verify generalizability.
-- The study converts each review and image into an attribute-oriented summary.
-  Future work may construct user- and item-level summaries from sets of UGC to
-  represent longer-term preferences more directly.
-- The effect of interaction sparsity on each model component was not isolated
-  quantitatively.
-- Textual attribute matching can support systematic error analysis, but visual
-  evidence cannot be validated with the same procedure. The image-modality
-  analysis is therefore more limited.
-- Attention Rollout indicates relative attention allocation and does not
-  establish a causal explanation for an individual prediction.
-- Full reproduction requires access to the original data, large language
-  models, processed features, trained weights, and substantial compute.
+[English](LIMITATIONS_EN.md)
+
+## 생성 요약의 정보 손실과 오류
+
+LLM이 생성한 요약문은 원본 리뷰나 이미지에 포함된 세부 정보를 누락하거나, 원본에서
+직접 확인하기 어려운 표현을 추가할 수 있다. 텍스트 오류 분석에서는 감성 반전과 부정
+속성 누락이 높은 예측 오차와 관련되는 경향을 확인하였으나, 이러한 관계가 직접적인
+인과관계를 의미하지는 않는다.
+
+## 데이터와 도메인의 범위
+
+실험은 Amazon의 Clothing, Shoes and Jewelry 및 Cell Phones and Accessories 두
+카테고리를 대상으로 수행하였다. 리뷰 문체, 이미지 구성 및 주요 속성이 다른
+도메인에서도 동일한 성능이 유지되는지 확인하기 위해서는 추가적인 검증이 필요하다.
+
+## 사용자·상품 단위 표현
+
+본 연구는 개별 리뷰와 이미지에서 속성 중심 요약을 생성하였다. 향후에는 여러 UGC를
+사용자 또는 상품 단위로 통합하여 장기적인 선호와 상품 특성을 직접적으로 표현하는
+방법을 검토할 필요가 있다.
+
+## 데이터 희소성
+
+데이터 희소성이 각 모델 구성요소와 성능에 미치는 영향을 별도의 실험으로 분리하여
+정량적으로 검증하지 못하였다. 사용자와 상품의 상호작용 수에 따른 성능 차이를
+분석하면 제안 방법의 적용 범위를 보다 명확하게 설명할 수 있다.
+
+## 이미지 모달리티 오류 분석
+
+텍스트는 원문과 요약문에서 추출한 속성과 감성을 비교하여 체계적인 오류 분석을 수행할
+수 있다. 반면 이미지의 시각적 근거는 동일한 속성 매칭 절차만으로 검증하기 어려워
+LLaVA 이미지 설명의 오류와 추천 성능 사이의 관계를 동일한 수준으로 분석하지 못하였다.
+
+## 모델 해석의 범위
+
+Attention Rollout은 인코더가 상대적으로 높은 주의를 배분한 표현을 보여주지만, 해당
+표현이 특정 평점 예측을 직접 유발했음을 증명하지는 않는다. 따라서 Attention 결과는
+인과적 설명이 아니라 모델 표현을 점검하기 위한 보조 자료로 해석해야 한다.
+
+## 재현 환경
+
+전체 실험을 재현하려면 원본 데이터, 대용량 전처리 파일, LLM 접근 권한, 모델 가중치
+및 충분한 GPU 자원이 필요하다. 해당 파일은 크기와 재배포 조건을 고려하여 저장소에
+포함하지 않았다.

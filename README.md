@@ -1,153 +1,137 @@
 # MAS-Rec
 
-MAS-Rec is a multimodal review-based recommendation framework designed to
-improve rating prediction by deriving preference-relevant representations from
-user-generated content (UGC). Online reviews describe purchase motivations,
-emotional responses, and usage experiences, whereas review images provide
-complementary visual evidence about product appearance and characteristics.
-MAS-Rec converts these heterogeneous signals into attribute-aware textual
-representations and learns their interaction for recommendation.
+MAS-Rec은 사용자 생성 콘텐츠(User-Generated Content, UGC)에 포함된 사용자 경험과
+아이템 특성을 풍부하게 표현하여 평점 예측 성능을 향상시키기 위한 멀티모달 추천
+프레임워크이다. 온라인 리뷰에는 구매 동기, 감정적 태도, 실제 사용 경험이 포함되며,
+리뷰 이미지는 상품의 외형과 특성에 관한 시각 정보를 보완한다. MAS-Rec은 서로 다른
+형태의 텍스트와 이미지 정보를 속성 중심의 텍스트 표현으로 통합한 뒤, 사용자 선호와
+아이템 특성 사이의 관계를 학습한다.
 
-[한국어](README_KR.md) · [Paper](https://doi.org/10.1109/ACCESS.2026.3694258) · [Data](data/README.md) · [Experiments](docs/EXPERIMENTS.md)
+[English](README_EN.md) · [논문](https://doi.org/10.1109/ACCESS.2026.3694258) · [데이터 안내](data/README.md) · [실험 결과](docs/EXPERIMENTS.md)
 
-## Research motivation
+## 연구 배경
 
-Collaborative filtering and matrix factorization effectively model historical
-interactions, but rating values alone provide limited evidence about why a user
-preferred an item. Prior review-based and multimodal recommender systems have
-therefore investigated UGC as an additional source for enriching user and item
-representations. However, directly combining text and image features can retain
-irrelevant information and preserve the structural differences between the two
-modalities.
+협업 필터링과 행렬 분해는 사용자와 아이템의 과거 상호작용을 효과적으로 학습하지만,
+평점만으로는 사용자가 상품을 선호한 구체적인 이유를 충분히 설명하기 어렵다. 이에
+선행 연구에서는 리뷰 텍스트와 이미지 같은 UGC를 활용하여 사용자와 아이템의 표현을
+보강하고 추천 정확도를 향상시키는 연구가 주로 수행되었다. 그러나 텍스트와 이미지의
+특징을 직접 결합하면 추천과 관련이 적은 정보가 함께 포함될 수 있고, 서로 다른
+모달리티의 구조적 차이가 그대로 남는 문제가 있다.
 
-MAS-Rec addresses this issue by summarizing text and image UGC at the attribute
-level. The resulting descriptions provide a common semantic space in which
-user preferences and product characteristics can be compared more directly.
+MAS-Rec은 텍스트와 이미지 UGC를 속성 단위로 요약하여 이러한 문제를 완화한다. 이를
+통해 사용자 선호와 상품 특성을 공통된 의미 공간에서 비교할 수 있으며, 평점만으로
+표현하기 어려운 구체적인 선호 정보를 추천 과정에 반영한다.
 
-## Framework
+## 제안 프레임워크
 
-1. **Text UGC representation:** LLaMA summarizes review text into
-   preference-relevant attributes, including fit, style, quality, and
-   durability.
-2. **Image UGC representation:** LLaVA describes review images together with
-   product titles using the same attribute-oriented format.
-3. **Recommendation-oriented encoding:** BERT encodes the generated summaries
-   and is fine-tuned for rating prediction.
-4. **Cross-representation interaction:** A Co-Attention module models the
-   semantic relationship between the user-side and item-side representations
-   before predicting the final rating.
+1. **텍스트 UGC 표현:** LLaMA를 이용하여 리뷰에서 착용감, 스타일, 품질, 내구성과
+   같은 선호 관련 속성을 요약한다.
+2. **이미지 UGC 표현:** LLaVA를 이용하여 리뷰 이미지와 상품 제목을 동일한 형태의
+   속성 중심 문장으로 변환한다.
+3. **추천 목적의 표현 학습:** 생성된 두 요약문을 BERT로 인코딩하고 평점 예측 과제에
+   맞게 미세조정한다.
+4. **사용자–아이템 상호작용:** Co-Attention으로 사용자 표현과 아이템 표현 사이의
+   의미적 관계를 학습한 뒤 최종 평점을 예측한다.
 
-The framework employs existing large language models to transform UGC; it does
-not introduce a newly pretrained language model.
+본 연구는 기존 대규모 언어 모델을 UGC 변환에 활용한 연구이며, 새로운 언어 모델을
+사전학습하거나 개발한 연구는 아니다.
 
-![MAS-Rec framework](docs/images/mas-rec-framework.png)
+![MAS-Rec 전체 구조](docs/images/mas-rec-framework.png)
 
-## Contributions
+## 주요 기여
 
-- A unified textual representation is constructed from review text and images,
-  thereby reducing the representational gap between modalities.
-- Attribute-based summarization selects information that is more closely
-  related to user preferences and product characteristics than unrestricted
-  feature fusion.
-- Recommendation-oriented BERT fine-tuning and Co-Attention jointly capture
-  informative attributes and their user–item interactions.
-- Experiments on two Amazon categories demonstrate consistent improvements
-  over the compared recommendation methods.
+- 리뷰 텍스트와 이미지 정보를 속성 중심의 텍스트로 변환하여 모달리티 간 표현 차이를
+  완화하였다.
+- 사용자 선호 및 상품 특성과 관련된 정보를 선택적으로 요약함으로써 무관한 정보가
+  추천 표현에 미치는 영향을 줄였다.
+- 추천 목적에 맞게 미세조정한 BERT와 Co-Attention을 결합하여 주요 속성과
+  사용자–아이템 간 상호작용을 함께 학습하였다.
+- 두 Amazon 카테고리에서 비교 모델보다 일관되게 향상된 추천 성능을 확인하였다.
 
-## Data and experimental design
+## 데이터와 실험 설계
 
-The prediction target is the 1–5 star rating associated with each Amazon
-review. The filtered datasets used in the study are summarized below.
+예측 대상은 Amazon 리뷰에 포함된 1~5점 평점이다. 연구에 사용한 필터링 데이터는
+다음과 같다.
 
-| Category | Reviews | Users | Items | Sparsity |
+| 카테고리 | 리뷰 | 사용자 | 상품 | 희소성 |
 |---|---:|---:|---:|---:|
 | Clothing, Shoes and Jewelry | 66,718 | 7,449 | 16,099 | 99.944% |
 | Cell Phones and Accessories | 23,491 | 4,149 | 4,975 | 99.886% |
 
-Each dataset is randomly divided into training, validation, and test sets using
-a 70:10:20 ratio. Model selection is performed using validation performance,
-and the final models are evaluated with MAE, MSE, RMSE, and MAPE. The public
-baseline directory retains the representative NeuMF, CAMRec, and MMCN
-notebooks used in the research workflow.
+각 데이터셋은 학습 70%, 검증 10%, 테스트 20%로 무작위 분할하였다. 검증 성능을
+기준으로 모델을 선택하고, 최종 모델은 MAE, MSE, RMSE, MAPE로 평가하였다. 공개
+baseline 디렉터리에는 연구 과정의 대표 비교 모델인 NeuMF, CAMRec, MMCN 노트북을
+남겼다.
 
-## Main results
+## 주요 결과
 
-The following values are reported in the paper; lower values indicate better
-performance.
+아래 결과는 논문에 보고된 값이며, 오차 지표는 낮을수록 우수하다.
 
-| Category | Best baseline RMSE | MAS-Rec RMSE | MAS-Rec MAE |
+| 카테고리 | 가장 우수한 비교 모델 RMSE | MAS-Rec RMSE | MAS-Rec MAE |
 |---|---:|---:|---:|
 | Clothing, Shoes and Jewelry | 0.549 (MMCN) | **0.507** | **0.316** |
 | Cell Phones and Accessories | 0.621 (MMCN) | **0.527** | **0.299** |
 
-The complete MAE, MSE, RMSE, and MAPE tables are provided in
-[`results/metrics.csv`](results/metrics.csv) and
-[`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md). The prompt comparison further
-shows that the most effective summarization strategy can vary by domain:
-reasoning-based summaries performed best for Clothing, whereas attribute-based
-summaries performed best for Cell Phones.
+전체 MAE, MSE, RMSE, MAPE 결과는
+[`results/metrics.csv`](results/metrics.csv)와
+[`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md)에 정리하였다. 프롬프트 비교에서는
+Clothing 데이터에서 Reasoning 방식이, Cell Phones 데이터에서 속성 요약 방식이 가장
+높은 성능을 보였다. 이는 효과적인 UGC 표현 방식이 도메인에 따라 달라질 수 있음을
+보여준다.
 
-## Interpretation and error analysis
+## 모델 해석과 오류 분석
 
-Attention Rollout is used to inspect which expressions receive relatively high
-attention after recommendation-oriented fine-tuning. Preference-related terms
-such as *fit*, *style*, *color*, and *design* frequently receive high values.
-This analysis is an inspection aid and should not be interpreted as a causal
-explanation of an individual prediction.
+Attention Rollout을 이용하여 추천 목적의 미세조정 이후 BERT가 상대적으로 크게
+주목한 표현을 확인하였다. 분석 결과, *fit*, *style*, *color*, *design*과 같이 사용자
+선호와 상품 특성을 나타내는 단어가 높은 값을 보였다. 다만 이 결과는 모델의 표현을
+점검하기 위한 보조 자료이며, 특정 단어가 개별 예측을 직접 유발했다는 인과적
+설명으로 해석하지 않는다.
 
-![Attention Rollout example](docs/images/attention-rollout.png)
+![Attention Rollout 예시](docs/images/attention-rollout.png)
 
-The text error analysis additionally examines whether an LLM summary preserves
-the review's attributes and sentiment. Sentiment reversal and the omission of
-negative attributes are treated as candidates for manual inspection rather
-than definitive evidence of hallucination. The complete aggregation tables,
-figures, and manual review results are provided in
-[`docs/TEXT_ERROR_ANALYSIS.md`](docs/TEXT_ERROR_ANALYSIS.md).
+텍스트 오류 분석에서는 LLM 요약이 원문 리뷰의 속성과 감성 방향을 보존하는지
+확인한다. 감성 반전과 부정 속성 누락은 환각의 확정 판정이 아니라 수동 검토가 필요한
+후보로 사용한다. 전체 집계표, 시각화 및 수동 판정 결과는
+[`docs/TEXT_ERROR_ANALYSIS.md`](docs/TEXT_ERROR_ANALYSIS.md)에 정리하였다.
 
-## Repository structure
+## 저장소 구성
 
 ```text
 MAS-Rec/
 ├── notebooks/
-│   ├── 00_preprocessing/    # Text and image feature preparation
-│   ├── 01_summarization/    # LLaMA and LLaVA summarization
-│   ├── 03_baselines/        # NeuMF, CAMRec, and MMCN
-│   └── 04_experiments/      # Fusion, prompt, and attention analyses
-├── src/                     # Shared data, metric, and model utilities
-├── configs/                 # Experiment and aspect-normalization settings
-├── results/                 # Reported results and figures
-├── data/                    # Data instructions and synthetic sample
-├── docs/                    # Experiment, reproduction, and limitation notes
-├── tests/
+│   ├── 00_preprocessing/    # 텍스트·이미지 특징 전처리
+│   ├── 01_summarization/    # LLaMA·LLaVA 기반 요약
+│   ├── 03_baselines/        # NeuMF, CAMRec, MMCN
+│   └── 04_experiments/      # 결합 방식, 프롬프트, Attention 분석
+├── configs/                 # 실험 및 속성 정규화 설정
+├── results/                 # 논문 결과와 시각화 자료
+├── data/                    # 데이터 구성과 주요 컬럼 안내
+├── docs/                    # 실험 결과, 재현 절차, 연구 한계
 ├── requirements.txt
 └── CITATION.cff
 ```
 
-## Reproduction
+## 노트북 실행
 
 ```bash
-python -m venv .venv
 pip install -r requirements.txt
-python -m unittest discover -s tests -v
 ```
 
-The CSV file under `data/sample/` is synthetic and is intended only for
-lightweight code checks. It is not used to obtain the reported results. Full
-data preparation and experiment order are described in
-[`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md).
+각 노트북은 Google Colab과 Google Drive를 기준으로 작성되어 있으므로 실행 전 데이터
+경로와 런타임을 확인해야 한다. `data/sample/`의 CSV는 실제 데이터의 컬럼 구성을
+확인하기 위한 합성 예시이며 논문 결과 산출에는 사용하지 않았다. 전체 데이터 준비와 실험 순서는
+[`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md)에 정리하였다.
 
-## Limitations
+## 한계
 
-Generated summaries may omit relevant details or introduce unsupported
-expressions. The experiments cover two Amazon product categories, and the same
-performance is not guaranteed in other domains. Moreover, image-modality error
-analysis remains limited because visual evidence cannot be assessed using the
-same attribute-matching procedure as text. See
-[`docs/LIMITATIONS.md`](docs/LIMITATIONS.md) for details.
+생성 요약에는 중요한 정보의 누락이나 근거가 부족한 표현이 포함될 수 있다. 또한 두
+Amazon 카테고리에서 확인한 결과가 다른 도메인에서도 동일하게 유지된다고 보장하기
+어렵다. 이미지 모달리티는 텍스트와 동일한 속성 매칭 방식으로 오류를 검증하기 어려워
+정량적 분석 범위에도 한계가 있다. 자세한 내용은
+[`docs/LIMITATIONS.md`](docs/LIMITATIONS.md)를 참고한다.
 
-## Citation and code use
+## 인용과 코드 사용
 
-Please cite the article specified in [`CITATION.cff`](CITATION.cff). The article
-is distributed under CC BY 4.0. The repository does not currently include a
-separate open-source software license; confirm the applicable code-use terms
-with the repository owner before redistribution.
+논문 정보는 [`CITATION.cff`](CITATION.cff)에 정리되어 있다. 논문은 CC BY 4.0으로
+공개되어 있으나, 저장소 코드에는 별도의 오픈소스 라이선스가 포함되어 있지 않다.
+코드를 재배포하기 전에는 저장소 소유자에게 사용 조건을 확인해야 한다.

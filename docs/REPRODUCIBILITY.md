@@ -4,16 +4,18 @@
 
 - `reported_paper` identifies values reported in the published article and
   stored in `results/metrics.csv`.
-- Results obtained from `data/sample/` are lightweight smoke tests and are not
-  comparable with the paper results.
+- `data/sample/` is a synthetic schema example and is not comparable with the
+  paper results.
 
-## Lightweight code check
+## Notebook environment
 
 ```bash
-python -m venv .venv
 pip install -r requirements.txt
-python -m unittest discover -s tests -v
 ```
+
+The notebooks are designed for Google Colab and Google Drive. Confirm the
+runtime, mounted Drive path, and required data files before running each
+notebook.
 
 ## Full experiment order
 

@@ -195,4 +195,4 @@ GPT-5.6-Sol Medium을 이용한 보조적 1차 판정이며, 경계 사례에는
 ## 관련 파일
 
 - 분석 노트북: [`notebooks/05_text_error_analysis.ipynb`](../notebooks/05_text_error_analysis.ipynb)
-- 그림 생성 코드: [`scripts/generate_text_error_figures.py`](../scripts/generate_text_error_figures.py)
+- 시각화 결과: [`results/figures/`](../results/figures/)

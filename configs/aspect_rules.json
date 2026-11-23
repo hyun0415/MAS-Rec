@@ -1,0 +1,42 @@
+{
+  "style": {
+    "keywords": ["style", "design", "look", "appearance", "fashion"],
+    "predefined": true
+  },
+  "color": {
+    "keywords": ["color", "colour", "shade"],
+    "predefined": true
+  },
+  "fit": {
+    "keywords": ["fit", "size", "sizing", "length", "width"],
+    "predefined": true
+  },
+  "pattern": {
+    "keywords": ["pattern", "print", "graphic"],
+    "predefined": true
+  },
+  "brand": {
+    "keywords": ["brand", "label", "manufacturer"],
+    "predefined": true
+  },
+  "quality": {
+    "keywords": ["quality", "construction", "craftsmanship"],
+    "predefined": false
+  },
+  "comfort": {
+    "keywords": ["comfort", "comfortable", "support", "cushion"],
+    "predefined": false
+  },
+  "material": {
+    "keywords": ["material", "fabric", "leather", "cotton"],
+    "predefined": false
+  },
+  "durability": {
+    "keywords": ["durability", "durable", "stitching", "zipper", "sole"],
+    "predefined": false
+  },
+  "value": {
+    "keywords": ["value", "price", "cost", "money"],
+    "predefined": false
+  }
+}

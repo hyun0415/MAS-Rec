@@ -1,5 +1,5 @@
 [experiment]
-name = "portfolio_refactored_protocol"
+name = "paper_protocol"
 seed = 42
 batch_size = 32
 maximum_epochs = 100
@@ -11,10 +11,8 @@ restore_best_validation_weights = true
 train = 0.70
 validation = 0.10
 test = 0.20
-shared_index_file = "data/splits/split_indices.json"
 
 [evaluation]
 metrics = ["mae", "mse", "rmse", "mape"]
 mape_scale = "fraction"
-test_use = "final_evaluation_only"
-
+test_use = "final_evaluation"

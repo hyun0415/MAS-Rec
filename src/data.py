@@ -91,14 +91,14 @@ def select_split(frame: pd.DataFrame, split: SplitIndices, name: str) -> pd.Data
 
 
 def fit_id_mapping(values: pd.Series) -> dict[str, int]:
-    """Fit an ID map on training rows only; zero is reserved for unknown IDs."""
+    """Build a deterministic ID map; zero is reserved for unknown IDs."""
 
     unique_values = sorted(values.dropna().astype(str).unique())
     return {value: position + 1 for position, value in enumerate(unique_values)}
 
 
 def apply_id_mapping(values: pd.Series, mapping: dict[str, int]) -> np.ndarray:
-    """Encode validation/test IDs without learning from those partitions."""
+    """Encode IDs with an existing mapping and map unseen values to zero."""
 
     return values.astype(str).map(mapping).fillna(UNKNOWN_ID).astype("int64").to_numpy()
 

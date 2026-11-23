@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="470" viewBox="0 0 760 470">
+<rect width="100%" height="100%" fill="white"/>
+<text x="380.0" y="31.0" text-anchor="middle" font-size="18" font-weight="600" fill="#25313C"><tspan x="380.0" dy="0">GPT-5.6-Sol Medium Review of 96 Cases</tspan></text>
+<line x1="82" y1="365.0" x2="732" y2="365.0" stroke="#D9DEE5" stroke-width="1"/>
+<text x="72" y="369.0" text-anchor="end" font-size="11" fill="#25313C">0.0%</text>
+<line x1="82" y1="304.4" x2="732" y2="304.4" stroke="#D9DEE5" stroke-width="1"/>
+<text x="72" y="308.4" text-anchor="end" font-size="11" fill="#25313C">12.0%</text>
+<line x1="82" y1="243.8" x2="732" y2="243.8" stroke="#D9DEE5" stroke-width="1"/>
+<text x="72" y="247.8" text-anchor="end" font-size="11" fill="#25313C">24.0%</text>
+<line x1="82" y1="183.2" x2="732" y2="183.2" stroke="#D9DEE5" stroke-width="1"/>
+<text x="72" y="187.2" text-anchor="end" font-size="11" fill="#25313C">36.0%</text>
+<line x1="82" y1="122.6" x2="732" y2="122.6" stroke="#D9DEE5" stroke-width="1"/>
+<text x="72" y="126.6" text-anchor="end" font-size="11" fill="#25313C">48.0%</text>
+<line x1="82" y1="62.0" x2="732" y2="62.0" stroke="#D9DEE5" stroke-width="1"/>
+<text x="72" y="66.0" text-anchor="end" font-size="11" fill="#25313C">60.0%</text>
+<rect x="112.3" y="244.3" width="75.5" height="120.7" rx="2" fill="#5B8DB8"/>
+<text x="150.1" y="237.3" text-anchor="middle" font-size="10.5" fill="#25313C">23.9%</text>
+<rect x="192.8" y="122.6" width="75.5" height="242.4" rx="2" fill="#243B5A"/>
+<text x="230.6" y="115.6" text-anchor="middle" font-size="10.5" fill="#25313C">48.0%</text>
+<text x="190.3" y="389.0" text-anchor="middle" font-size="12" font-weight="400" fill="#25313C"><tspan x="190.3" dy="0">Unsupported</tspan><tspan x="190.3" dy="1.15em">claim</tspan></text>
+<rect x="329.0" y="354.0" width="75.5" height="11.0" rx="2" fill="#5B8DB8"/>
+<text x="366.8" y="347.0" text-anchor="middle" font-size="10.5" fill="#25313C">2.2%</text>
+<rect x="409.5" y="253.9" width="75.5" height="111.1" rx="2" fill="#243B5A"/>
+<text x="447.2" y="246.9" text-anchor="middle" font-size="10.5" fill="#25313C">22.0%</text>
+<text x="407.0" y="389.0" text-anchor="middle" font-size="12" font-weight="400" fill="#25313C"><tspan x="407.0" dy="0">Sentiment</tspan><tspan x="407.0" dy="1.15em">distortion</tspan></text>
+<rect x="545.7" y="354.0" width="75.5" height="11.0" rx="2" fill="#5B8DB8"/>
+<text x="583.4" y="347.0" text-anchor="middle" font-size="10.5" fill="#25313C">2.2%</text>
+<rect x="626.2" y="152.9" width="75.5" height="212.1" rx="2" fill="#243B5A"/>
+<text x="663.9" y="145.9" text-anchor="middle" font-size="10.5" fill="#25313C">42.0%</text>
+<text x="623.7" y="389.0" text-anchor="middle" font-size="12" font-weight="400" fill="#25313C"><tspan x="623.7" dy="0">Complaint</tspan><tspan x="623.7" dy="1.15em">omission</tspan></text>
+<line x1="82" y1="365" x2="732" y2="365" stroke="#25313C" stroke-width="1.2"/>
+<text transform="translate(20 213.5) rotate(-90)" text-anchor="middle" font-size="12" fill="#25313C">Case rate</text>
+<rect x="522" y="444" width="12" height="12" rx="2" fill="#5B8DB8"/>
+<text x="540" y="454" font-size="11" fill="#25313C">Small error</text>
+<rect x="627" y="444" width="12" height="12" rx="2" fill="#243B5A"/>
+<text x="645" y="454" font-size="11" fill="#25313C">Large error</text>
+</svg>

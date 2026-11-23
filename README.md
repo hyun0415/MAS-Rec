@@ -1,129 +1,129 @@
 # MAS-Rec
 
-MAS-Rec predicts a review rating from a user's review history and a product's
-text and image information. Its main idea is simple: first describe both sides
-with attribute-focused text, then learn which user preferences match the
-product.
+MAS-Rec is a multimodal review-based recommendation framework designed to
+improve rating prediction by deriving preference-relevant representations from
+user-generated content (UGC). Online reviews describe purchase motivations,
+emotional responses, and usage experiences, whereas review images provide
+complementary visual evidence about product appearance and characteristics.
+MAS-Rec converts these heterogeneous signals into attribute-aware textual
+representations and learns their interaction for recommendation.
 
-This repository is a research and portfolio archive. It does not include the
-large processed datasets, model weights, or private credentials.
+[한국어](README_KR.md) · [Paper](https://doi.org/10.1109/ACCESS.2026.3694258) · [Data](data/README.md) · [Experiments](docs/EXPERIMENTS.md)
 
-[한국어 설명](README_KR.md) · [Paper](https://doi.org/10.1109/ACCESS.2026.3694258) · [Data guide](data/README.md) · [Experiment notes](docs/EXPERIMENTS.md)
+## Research motivation
 
-## 1. Problem
+Collaborative filtering and matrix factorization effectively model historical
+interactions, but rating values alone provide limited evidence about why a user
+preferred an item. Prior review-based and multimodal recommender systems have
+therefore investigated UGC as an additional source for enriching user and item
+representations. However, directly combining text and image features can retain
+irrelevant information and preserve the structural differences between the two
+modalities.
 
-Reviews and product images often describe the same idea in different forms. A
-review might say that a shirt is comfortable, while an image only shows its
-shape, color, and material. When a recommender encodes these inputs separately,
-it is harder to compare them directly.
+MAS-Rec addresses this issue by summarizing text and image UGC at the attribute
+level. The resulting descriptions provide a common semantic space in which
+user preferences and product characteristics can be compared more directly.
 
-MAS-Rec turns both inputs into short, attribute-focused text. This gives the
-rating model a common language for user preferences and product features.
+## Framework
 
-## 2. Data and label
+1. **Text UGC representation:** LLaMA summarizes review text into
+   preference-relevant attributes, including fit, style, quality, and
+   durability.
+2. **Image UGC representation:** LLaVA describes review images together with
+   product titles using the same attribute-oriented format.
+3. **Recommendation-oriented encoding:** BERT encodes the generated summaries
+   and is fine-tuned for rating prediction.
+4. **Cross-representation interaction:** A Co-Attention module models the
+   semantic relationship between the user-side and item-side representations
+   before predicting the final rating.
 
-The target is the 1-to-5 star rating in an Amazon review. The paper uses two
-filtered product categories:
+The framework employs existing large language models to transform UGC; it does
+not introduce a newly pretrained language model.
+
+![MAS-Rec framework](docs/images/mas-rec-framework.png)
+
+## Contributions
+
+- A unified textual representation is constructed from review text and images,
+  thereby reducing the representational gap between modalities.
+- Attribute-based summarization selects information that is more closely
+  related to user preferences and product characteristics than unrestricted
+  feature fusion.
+- Recommendation-oriented BERT fine-tuning and Co-Attention jointly capture
+  informative attributes and their user–item interactions.
+- Experiments on two Amazon categories demonstrate consistent improvements
+  over the compared recommendation methods.
+
+## Data and experimental design
+
+The prediction target is the 1–5 star rating associated with each Amazon
+review. The filtered datasets used in the study are summarized below.
 
 | Category | Reviews | Users | Items | Sparsity |
 |---|---:|---:|---:|---:|
 | Clothing, Shoes and Jewelry | 66,718 | 7,449 | 16,099 | 99.944% |
 | Cell Phones and Accessories | 23,491 | 4,149 | 4,975 | 99.886% |
 
-Sparsity means that most possible user-product pairs have no rating. This makes
-preference learning difficult and increases the value of review content.
+Each dataset is randomly divided into training, validation, and test sets using
+a 70:10:20 ratio. Model selection is performed using validation performance,
+and the final models are evaluated with MAE, MSE, RMSE, and MAPE. The public
+baseline directory retains the representative NeuMF, CAMRec, and MMCN
+notebooks used in the research workflow.
 
-## 3. Method
+## Main results
 
-The four model roles are:
-
-- **LLaMA** summarizes review text into user preferences such as fit, style, or
-  durability.
-- **LLaVA** describes product images and titles with the same type of
-  attribute-focused text.
-- **BERT** encodes the two summaries. Its weights are fine-tuned for rating
-  prediction; BERT is not used only as a frozen feature extractor.
-- **Co-attention** combines the user and product representations before the
-  final rating prediction.
-
-The study uses existing LLMs to create attribute-level representations. It does
-not claim to pretrain or develop a new LLM.
-
-![MAS-Rec framework](docs/images/mas-rec-framework.png)
-
-## 4. Experiment design
-
-The paper uses a random 70% training, 10% validation, and 20% test split. Model
-selection is based on validation performance, and the final test set is kept for
-the last evaluation.
-
-The archived notebooks were written at different stages of the research. They
-use the same split ratios and seed, but each notebook creates its own split and
-some training settings differ. The portfolio protocol fixes this by sharing one
-split file and one metric implementation across every model. See
-[the baseline audit](docs/BASELINE_AUDIT.md).
-
-## 5. Main results
-
-These are the values reported in the paper. They have not been rerun in this
-portfolio refactor. Lower is better.
+The following values are reported in the paper; lower values indicate better
+performance.
 
 | Category | Best baseline RMSE | MAS-Rec RMSE | MAS-Rec MAE |
 |---|---:|---:|---:|
 | Clothing, Shoes and Jewelry | 0.549 (MMCN) | **0.507** | **0.316** |
 | Cell Phones and Accessories | 0.621 (MMCN) | **0.527** | **0.299** |
 
-The full MAE, MSE, RMSE, and MAPE tables are stored in
-[`results/metrics.csv`](results/metrics.csv) with `reported_paper` provenance.
+The complete MAE, MSE, RMSE, and MAPE tables are provided in
+[`results/metrics.csv`](results/metrics.csv) and
+[`docs/EXPERIMENTS.md`](docs/EXPERIMENTS.md). The prompt comparison further
+shows that the most effective summarization strategy can vary by domain:
+reasoning-based summaries performed best for Clothing, whereas attribute-based
+summaries performed best for Cell Phones.
 
-The prompt comparison did not produce one universal winner. Reasoning-style
-summaries performed best for Clothing, while attribute summaries performed best
-for Cell Phones. This is evidence that prompt choice can depend on the domain.
+## Interpretation and error analysis
 
-## 6. Interpretation and errors
-
-Attention Rollout was used to see which words received relatively high encoder
-attention after fine-tuning. Words about fit, style, color, and design often
-received high values.
+Attention Rollout is used to inspect which expressions receive relatively high
+attention after recommendation-oriented fine-tuning. Preference-related terms
+such as *fit*, *style*, *color*, and *design* frequently receive high values.
+This analysis is an inspection aid and should not be interpreted as a causal
+explanation of an individual prediction.
 
 ![Attention Rollout example](docs/images/attention-rollout.png)
 
-This visualization is a supporting inspection tool. It is not a causal
-explanation of an individual prediction.
+The text error analysis additionally examines whether an LLM summary preserves
+the review's attributes and sentiment. Sentiment reversal and the omission of
+negative attributes are treated as candidates for manual inspection rather
+than definitive evidence of hallucination. The complete aggregation tables,
+figures, and manual review results are provided in
+[`docs/TEXT_ERROR_ANALYSIS.md`](docs/TEXT_ERROR_ANALYSIS.md).
 
-Useful error-analysis questions include:
-
-- Did the generated summary omit an important review detail?
-- Did the image description mention an attribute that the image does not
-  support?
-- Are the largest errors concentrated in rare users or products?
-- Does one product category use attributes that the prompt does not cover well?
-
-## 7. Limitations
-
-Generated summaries can be incomplete or unsupported. Results from two Amazon
-categories may not transfer to a new domain. The full experiments also require
-restricted model access, large processed files, and substantial compute.
-
-See [the limitations note](docs/LIMITATIONS.md) for the complete list.
-
-## 8. Repository map
+## Repository structure
 
 ```text
 MAS-Rec/
-├── src/                    # Shared data, metrics, and readable model code
-├── configs/                # Refactored experiment rules
-├── notebooks/              # Paper-era notebooks plus portfolio walkthroughs
-├── results/                # Paper values with explicit provenance
-├── data/                   # Data instructions and a synthetic sample
-├── docs/                   # Audit, experiment, and limitation notes
-├── legacy/README.md        # Status of the archived notebooks
+├── notebooks/
+│   ├── 00_preprocessing/    # Text and image feature preparation
+│   ├── 01_summarization/    # LLaMA and LLaVA summarization
+│   ├── 03_baselines/        # NeuMF, CAMRec, and MMCN
+│   └── 04_experiments/      # Fusion, prompt, and attention analyses
+├── src/                     # Shared data, metric, and model utilities
+├── configs/                 # Experiment and aspect-normalization settings
+├── results/                 # Reported results and figures
+├── data/                    # Data instructions and synthetic sample
+├── docs/                    # Experiment, reproduction, and limitation notes
 ├── tests/
 ├── requirements.txt
 └── CITATION.cff
 ```
 
-## 9. Reproduce the lightweight checks
+## Reproduction
 
 ```bash
 python -m venv .venv
@@ -131,14 +131,23 @@ pip install -r requirements.txt
 python -m unittest discover -s tests -v
 ```
 
-The small CSV in `data/sample/` is synthetic and is only for code checks. It is
-not used for the paper results. Full data preparation and training are described
-in [the reproducibility guide](docs/REPRODUCIBILITY.md).
+The CSV file under `data/sample/` is synthetic and is intended only for
+lightweight code checks. It is not used to obtain the reported results. Full
+data preparation and experiment order are described in
+[`docs/REPRODUCIBILITY.md`](docs/REPRODUCIBILITY.md).
+
+## Limitations
+
+Generated summaries may omit relevant details or introduce unsupported
+expressions. The experiments cover two Amazon product categories, and the same
+performance is not guaranteed in other domains. Moreover, image-modality error
+analysis remains limited because visual evidence cannot be assessed using the
+same attribute-matching procedure as text. See
+[`docs/LIMITATIONS.md`](docs/LIMITATIONS.md) for details.
 
 ## Citation and code use
 
-Please cite the article listed in `CITATION.cff`. The article is available under
-CC BY 4.0. The repository itself does not yet include a separate open-source
-software license, so confirm code-use terms with the repository owner before
-redistribution.
-
+Please cite the article specified in [`CITATION.cff`](CITATION.cff). The article
+is distributed under CC BY 4.0. The repository does not currently include a
+separate open-source software license; confirm the applicable code-use terms
+with the repository owner before redistribution.
